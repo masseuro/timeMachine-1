@@ -9,19 +9,11 @@
 	<a id="btn" href="#">Click</a>
 	<input id="in"></input>
 
+	<script src="../js/jquery.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
+	<script src="/js/map.js"></script>
 	<script>
-	  var socket = io.connect(window.location.origin);
-	  socket.on('truc', function (data) {
-	    console.log(data);
-	  });
-
-	  var btn = document.getElementById('btn');
-	  var inputIn = document.getElementById('in');
-
-	  btn.onclick = function() {
-	  	socket.emit('click', { led: inputIn.value });
-	  };
+	  
 	</script>
 </body>
 </html>

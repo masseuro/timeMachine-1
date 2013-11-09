@@ -1,0 +1,19 @@
+$base-line-height: 20px;
+$base-font-size:   round($base-line-height / 3 * 2);
+
+$column-width: 60px; 
+$gutter-width: 20px;
+$grid-padding: $gutter-width;
+
+$rythm-unit: 'em';
+ $grid-unit: 'em';
+
+/*  XXS - XS - S - M - L - XL - XXL  */
+
+$columns-S:   8;
+$columns-M:  12;
+$columns-L:  16;
+
+$XS:  680px;
+$S:  1024px;
+$L:  1600px;

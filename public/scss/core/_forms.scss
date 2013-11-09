@@ -1,0 +1,216 @@
+$input-width     : 214px;
+$input-width-gap :   6px;
+
+fieldset
+{
+    border: none;
+    padding: 0;
+    
+    legend
+    {
+        span
+        {
+            display: block;
+            @include padding-bottom;
+        }
+    }
+}
+.label
+{
+    @include span(2);
+}
+span.help
+{
+    margin-left: $gutter-width;
+    @include span(2);
+}
+span.error
+{
+    color: #F00;
+	@include span(3);
+	@include last;
+}
+.errors
+{
+    color: #F00;
+}
+span.label,
+span.help,
+span.error
+{
+    float: none;
+    display: inline-block;    
+}
+input,
+select,
+textarea,
+span.label,
+span.help,
+span.error
+{
+    vertical-align: top;
+}
+.radio,
+.checkbox
+{
+    .label
+    {
+        width: auto;
+        margin-right: 0;
+    }
+    input
+    {
+        position: relative;
+        top: 2px;
+    }
+}
+.line
+{
+    @include min-height(2);
+    margin-bottom: 0;
+}
+@mixin input
+{
+    width: $input-width;
+    
+    border: 1px solid #a6a6a6;
+    padding: 2px;
+    
+    @include border-radius(0);
+}
+input.text,
+input.email,
+input.search,
+input.tel,
+input.url,
+input.password,
+input.file,
+input.color,
+input.number,
+input.range,
+input.date,
+input.month,
+input.week,
+input.datetime,
+input.datetime-local
+{
+    @include input;
+    @include appearance(none);
+}
+input[type=text],
+input[type=email],
+input[type=search],
+input[type=tel],
+input[type=url],
+input[type=password],
+input[type=file],
+input[type=color],
+input[type=number],
+input[type=range],
+input[type=date],
+input[type=month],
+input[type=week],
+input[type=datetime],
+input[type=datetime-local],
+{
+    @include input;
+    @include appearance(none);
+}
+select
+{
+    @include input;
+    width: $input-width + $input-width-gap;
+    padding: 1px;
+}
+input.range
+{
+    padding: 0;
+    border:  0;
+    width: $input-width + $input-width-gap;
+}
+input[type=range]
+{
+    padding: 0;
+    border:  0;
+    width: $input-width + $input-width-gap;
+}
+input.file
+{
+    background-color: transparent;
+    width: auto;
+    border:  0;
+    padding: 0;
+}
+input[type=file]
+{
+    background-color: transparent;
+    width: auto;
+    border:  0;
+    padding: 0;
+}
+textarea
+{
+    @include input;
+    @include height     (4);
+    @include min-height (4);
+    @include max-height (6);
+    
+    @include font-size($fs);
+    
+    @include resize;
+}
+.textarea
+{
+    @include min-height(7);
+}
+input[type=reset],
+input[type=button],
+input[type=submit]
+{
+    @include input;
+    width: $input-width + $input-width-gap;
+    
+    &:focus
+    {
+        outline: thin dotted;
+    }
+}
+input.reset,
+input.button,
+input.submit
+{
+    @include input;
+    width: $input-width + $input-width-gap;
+    
+    &:focus
+    {
+        outline: thin dotted;
+    }
+}
+button
+{
+    @include input;
+    width: $input-width + $input-width-gap;
+    
+    &:focus
+    {
+        outline: thin dotted;
+    }
+}
+/*
+.ch,
+.sa
+{
+    select
+    {
+        @include appearance(none);
+        @include border-radius(0);
+        
+        background-image: url(../img/bg/select.png);
+        background-repeat: no-repeat;
+        background-position: 100% 50%;
+        
+        padding-right: 20px;
+    }
+}
+*/

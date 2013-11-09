@@ -1,0 +1,12 @@
+@import "project/font-face";
+
+@media screen
+{
+	@import "project/ui";
+	@import "project/layout";
+	@import "project/pages";
+}
+@media print
+{
+	@import "project/print";
+}

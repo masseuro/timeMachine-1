@@ -1,0 +1,53 @@
+.index,
+.doc
+{
+    #page
+    {
+        @include container;    
+    }
+    img
+    {
+        max-width: 100%;
+    }
+    h1,
+    h2,
+    h3,
+    h4
+    {
+        padding-top: 0;
+    }
+    table
+    {
+        $fs: 12px;
+    
+        @include bloc($fs);
+        
+        width: 100%;
+        
+        td,
+        th
+        {
+            text-align: left;
+            
+            border: 1px solid #333;
+            
+            @include padding-top   (0.5, $fs);
+            @include padding-bottom(0.5, $fs);
+        }
+        th
+        {
+            white-space: nowrap;
+        }        
+    }
+    #footnotes
+    {
+        $fs: 11px;
+    
+        @include bloc($fs);
+        
+        p
+        {
+            margin-bottom: 0;
+        }
+    }
+}

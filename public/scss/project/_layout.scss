@@ -1,0 +1,40 @@
+#page,
+#grid
+{
+    @include mq($M, true)
+    {
+        @include container($columns-M);
+    }
+    @include mq($L, false, min)
+    {
+        @include container($columns-L);
+    }
+    @include mq($S)
+    {
+        @include container($columns-S);
+    }
+    @include mq($XS)
+    {
+        width: auto;
+    }
+}
+#grid
+{
+    .vert
+    {
+        width: unit($column-width);
+        margin-left: unit($gutter-width);
+        
+        @include mq($XS)
+        {
+            &.first-child
+            {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@import "layout/header";
+@import "layout/content";
+@import "layout/footer";

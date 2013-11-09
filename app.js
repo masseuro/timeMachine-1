@@ -1,4 +1,5 @@
-var app = require('express')(),
+var express = require('express'),
+	app = express(),
 	server = require('http').createServer(app),
 	io = require('socket.io').listen(server),
 	five = require('johnny-five'),
@@ -15,12 +16,26 @@ board.on('ready', function() {
 
 
 // routes
-app.get('/clientTouch', function (req,res) {
-	res.sendfile(__dirname + '/public/clientTouch.html');
+app.get('/client1', function (req,res) {
+	res.sendfile(__dirname + '/public/client.html');
+});
+app.get('/client2', function (req,res) {
+	res.sendfile(__dirname + '/public/client.html');
+});
+app.get('/client3', function (req,res) {
+	res.sendfile(__dirname + '/public/client.html');
+});
+app.get('/client4', function (req,res) {
+	res.sendfile(__dirname + '/public/client.html');
 });
 app.get('/screen', function (req,res) {
 	res.sendfile(__dirname + '/public/screen.html');
 });
+
+//Routes static
+app.use("/css", express.static(__dirname + '/public/css'));
+app.use("/js", express.static(__dirname + '/public/js'));
+app.use("/img", express.static(__dirname + '/public/img'));
 
 io.sockets.on('connection', function (socket) {
   socket.emit('truc', { hello: 'world' });
