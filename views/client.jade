@@ -1,0 +1,23 @@
+html(lang="fr")
+  head
+    title Joueur #{joueur}
+      
+    
+  body.joueur
+    #content
+      #main
+        #questiontexte 
+        #reponses 
+      #aside
+        #questionimage
+        #avatar
+
+    #popin
+      button#start Démarrer une partie
+
+    script(src='js/jquery.js')
+    script(src='/socket.io/socket.io.js')
+    script.
+      var zones = !{zones};
+      var joueur = #{joueur};
+    script(src='js/client.js')

@@ -5,8 +5,18 @@ var express = require('express'),
 	five = require('johnny-five'),
 	board = new five.Board(),
 	PORT = process.env.PORT || 9999,
+	questions = require('questions.json'),
+	jade = require('jade'),
 	led;
 
+//middleware
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+app.use(express.bodyParser());
+app.use(express.cookieParser());
+
+
+//lunch server
 server.listen(PORT);
 
 board.on('ready', function() {
@@ -14,22 +24,36 @@ board.on('ready', function() {
 	led = new five.Led(13);
 });
 
-
 // routes
 app.get('/client1', function (req,res) {
-	res.sendfile(__dirname + '/public/client.html');
+	res.render('client.jade',{
+		joueur:1,
+		zones: JSON.stringify(questions)
+	});
 });
 app.get('/client2', function (req,res) {
-	res.sendfile(__dirname + '/public/client.html');
+	res.render('client.jade',{
+		joueur:2,
+		zones: JSON.stringify(questions)
+	});
 });
 app.get('/client3', function (req,res) {
-	res.sendfile(__dirname + '/public/client.html');
+	res.render('client.jade',{
+		joueur:3,
+		zones: JSON.stringify(questions)
+	});
 });
 app.get('/client4', function (req,res) {
-	res.sendfile(__dirname + '/public/client.html');
+	res.render('client.jade',{
+		joueur:4,
+		zones: JSON.stringify(questions)
+	});
 });
 app.get('/screen', function (req,res) {
-	res.sendfile(__dirname + '/public/screen.html');
+	res.render('client.jade',{
+		joueur:0,
+		zones: JSON.stringify(questions)
+	});
 });
 
 //Routes static
@@ -40,14 +64,8 @@ app.use("/img", express.static(__dirname + '/public/img'));
 io.sockets.on('connection', function (socket) {
   socket.emit('truc', { hello: 'world' });
   
-  socket.on('click', function (data) {
-    console.log(data);
-
-    if (data.led === 'on') {
-    	led.on();
-    }
-    else {
-    	led.off();
-    }
+  socket.on('start', function (data) {
+  	//lancement du jeu par un joueur on lance la premiere zone
+    socket.broadcast.emit('changeZone',{zoneNumber:1});
   });
 });
