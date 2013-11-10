@@ -146,3 +146,21 @@ body{
 	color:#fff;
 	text-shadow: 1px 1px 2px #000, 0px 0px 1em #2cb9cf, 0 0 0.2em #2cb9cf;
 }
+
+.jqmWindow {
+    display: none;
+    
+    position: fixed;
+    top: 17%;
+    left: 50%;
+    
+    margin-left: -300px;
+    width: 600px;
+    
+    background-color: #EEE;
+    color: #333;
+    border: 1px solid black;
+    padding: 12px;
+}
+
+.jqmOverlay { background-color: #000; }

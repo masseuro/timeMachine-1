@@ -1,8 +1,8 @@
-var currentZone;
-var currentNumberZone;
-var currentQuestion;
-var currentNumberQuestion;
-var socket;
+var currentZone,
+	currentNumberZone,
+	currentQuestion,
+	currentNumberQuestion,
+	socket;
 
 $(function(){
 	socket = io.connect(window.location.origin);
@@ -106,7 +106,7 @@ var nextZone = function nextZone(){
 }
 	
 var victoire = function victoire(){
-	if(currentNumberZone == 1){
+	if(currentNumberZone >= 4){
 		socket.emit('endvictoire', {joueur:joueur});
 		felicitationFinal();
 	}else{
@@ -140,7 +140,7 @@ var reponseZone = function reponseZone(){
 	if(currentZone.resultatok.image && currentZone.resultatok.image != ''){
 		resultat += '<img src="img/'+currentZone.resultatok.image+'>';
 	}
-	modalMessage(resultat,10,nextZone);
+	modalMessage(resultat,20,nextZone);
 }
 
 var getZoneFromNumber = function getZoneFromNumber(zoneNumber){
@@ -159,5 +159,13 @@ var modalMessage = function modalMessage(msg, timer, callback){
 	if(callback != undefined){
 		setTimeout(callback, timer);
 	}
-	alert(msg+ '  => wait '+ timer+'s');
+	var msg = $('<div>'+msg+'</div>');
+	$.colorbox({
+		html:msg,
+		overlayClose:false,
+		closeButton:false,
+		maxWidth:"800"
+	});
+	setTimeout(function(){$.colorbox.close()},timer*1000);
+	//alert(msg+ '  => wait '+ timer+'s');
 }

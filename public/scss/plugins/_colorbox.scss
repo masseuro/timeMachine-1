@@ -1,7 +1,9 @@
 #colorbox
 {
     outline: 0;
-
+    font-size:30px;
+    line-height:40px;
+    color:#FFF;
     #cboxContent
     {
         position: relative;
@@ -9,6 +11,9 @@
     #cboxLoadedContent
     {
         overflow: auto;
+        div{
+            padding:3em;
+        }
     }
     #cboxLoadingOverlay,
     #cboxLoadingGraphic
@@ -46,12 +51,12 @@
         display: block;
         border: 0;
 
-        background:#fff;
+        background:#000;
     }    
     #cboxLoadedContent,
     #cboxLoadingOverlay
     {
-        background: #fff;
+        background: #000;
         border: 1px solid #000;
         @include padding;
         padding-bottom: 0;
@@ -92,5 +97,5 @@
     right:  0;
     bottom: 0;
     
-    background: #808080;
+    background: #313151;
 }

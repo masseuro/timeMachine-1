@@ -49,9 +49,8 @@ app.get('/client4', function (req,res) {
 		zones: JSON.stringify(questions)
 	});
 });
-app.get('/screen', function (req,res) {
-	res.render('client.jade',{
-		joueur:0,
+app.get('/carte', function (req,res) {
+	res.render('map.jade',{
 		zones: JSON.stringify(questions)
 	});
 });

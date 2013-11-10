@@ -1,0 +1,17 @@
+html(lang="fr")
+  head
+    title Carte
+    link(rel="stylesheet", type="text/css", media="all", href="css/styles.css")
+  body(class='carte')
+    #content
+      #zone1
+      #zone2
+      #zone3
+      #zone4
+    button#start Time Machine
+   
+    script(src='js/jquery.js')
+    script(src='/socket.io/socket.io.js')
+    script.
+      var zones = !{zones};
+    script(src='js/carte.js')
