@@ -1,12 +1,12 @@
 html(lang="fr")
   head
     title Joueur #{joueur}
-      
-    
-  body.joueur
+    link(rel="stylesheet", type="text/css", media="all", href="css/styles.css")
+  body(class='joueur' + joueur)
     #content
       #main
         #questiontexte 
+          #questiontexteInner
         #reponses 
       #aside
         #questionimage

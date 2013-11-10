@@ -1,4 +1,129 @@
+body{
+	font-size:20px;
+	background:#333 url(../img/fond_Interface.png);
+	color:#fff;
+	background-size: 100% auto;
+	height:100%;
+	width:100%;
+	overflow:hidden;
+}
+
 #content
 {
+	padding: 20px; //test marge ecran
+	@include clearfix;
+	height:100%;
+	width:100%;
+	overflow:hidden;
+	@include box-sizing(border-box);
+}
 
+#main{
+	width:70%;
+	float:left;
+	@include box-sizing(border-box);
+	padding-right: 20px;
+}
+#aside{
+	width:30%;
+	float:left;
+	@include box-sizing(border-box);
+	
+	height:100%;
+	#questionimage{
+		width:100%;
+		height:50%;
+		padding-bottom: 20px;
+		@include box-sizing(border-box);
+		text-align: center;
+		#realQuestionImage{
+			background-size: auto 100%;
+			background-position: center top;
+			background-repeat: no-repeat;
+			width:100%;
+			height:100%;
+		}
+	}
+    #avatar{
+    	width:100%;
+		height:50%;
+		padding-top: 20px;
+    	@include box-sizing(border-box);
+	}
+}
+.joueur1{
+	#avatar{
+		background:url(../img/joueur1.png) no-repeat center center;
+		background-size: auto 100%;
+	}
+}
+
+#questiontexte{
+	border:2px solid #fff;
+	border-width:2px 2px 0 2px;
+	background:#113;
+	@include box-shadow(0px 0px 5px #2cb9cf);
+	#questiontexteInner{
+		width:100%;
+		padding:4em 1em;
+		
+		@include box-shadow(0px 0px 5px #2cb9cf inset);
+		@include box-sizing(border-box);
+		p{
+			margin:0;
+		}
+		strong{
+			font-size:30px;
+		line-height:40px;	
+		}
+	}
+}
+
+#reponses{
+	list-style:none;
+	button{
+		background:none;
+		background:#335;
+		color:#fff;
+		text-align: left;
+		width:100%;
+		padding:2em 1em;
+		@include box-shadow(0px 0px 5px #2cb9cf inset);
+		@include box-sizing(border-box);
+		strong{
+			padding-right: 10px;
+			font-size:30px;
+		}
+		&.bon{
+			&:focus,&:active{
+				background:#353;
+			}
+		}
+		&.faux{
+			&:focus,&:active{
+				background:#533;
+			}
+		}
+	}
+	li{
+		border:2px solid #fff;
+		border-width:2px 2px 0 2px;
+		@include box-shadow(0px 0px 5px #2cb9cf);
+		&:last-child{
+			border-width:2px;
+		}
+	}
+}
+
+#start{
+	position: absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height: 100%;
+	background:url(../img/start.png);
+	background-size: 100% auto;
+	font-size:50px;
+	color:#fff;
+	@include text-shadow(0px 0px 5px #2cb9cf);
 }

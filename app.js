@@ -3,7 +3,7 @@ var express = require('express'),
 	server = require('http').createServer(app),
 	io = require('socket.io').listen(server),
 	five = require('johnny-five'),
-	board = new five.Board(),
+	//board = new five.Board(),
 	PORT = process.env.PORT || 9999,
 	questions = require('questions.json'),
 	jade = require('jade'),
@@ -19,10 +19,10 @@ app.use(express.cookieParser());
 //lunch server
 server.listen(PORT);
 
-board.on('ready', function() {
-	console.log('board ok');
-	led = new five.Led(13);
-});
+// board.on('ready', function() {
+// 	console.log('board ok');
+// 	led = new five.Led(13);
+// });
 
 // routes
 app.get('/client1', function (req,res) {
