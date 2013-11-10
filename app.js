@@ -62,10 +62,27 @@ app.use("/js", express.static(__dirname + '/public/js'));
 app.use("/img", express.static(__dirname + '/public/img'));
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('truc', { hello: 'world' });
   
+  //lancement du jeu par un joueur on lance la premiere zone
   socket.on('start', function (data) {
-  	//lancement du jeu par un joueur on lance la premiere zone
-    socket.broadcast.emit('changeZone',{zoneNumber:1});
+    socket.broadcast.emit('startGame',{zoneNumber:1});
+    socket.broadcast.emit('alive');
+  });
+
+  //Victoire de la manche par un joueur
+  socket.on('victoire', function (data) {
+    socket.broadcast.emit('finDeManche',{joueur:data.joueur});
+    socket.broadcast.emit('alive');
+  });
+
+  socket.on('endvictoire', function (data) {
+    socket.broadcast.emit('finDuJeu',{joueur:data.joueur});
+    socket.broadcast.emit('alive');
+  });
+
+  //Bonne reponse d'un joueur
+  socket.on('bonnereponse', function (data) {
+    //TODO affichage led suivant data.joueur
+    socket.broadcast.emit('alive');
   });
 });
