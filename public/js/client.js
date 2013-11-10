@@ -3,9 +3,9 @@ var currentZone,
 	currentQuestion,
 	currentNumberQuestion,
 	socket,
-	timeDefault = 1,
+	timeDefault = 3,
 	timeFin = 2,
-	timeLecture = 5;
+	timeLecture = 20;
 
 $(function(){
 	socket = io.connect(window.location.origin);

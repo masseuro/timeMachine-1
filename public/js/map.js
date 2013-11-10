@@ -5,7 +5,7 @@ var currentZone,
 	 socket,
 	 resetTimeOut,
 	 resetTime = 3*60,
-	 timeLecture = 5;
+	 timeLecture = 20;
 
 $(function(){
 	socket = io.connect(window.location.origin);
@@ -23,10 +23,12 @@ $(function(){
 
 	socket.on('finDeManche', function (data) {
 		finDeManche(data.joueur);
+		alive();
 	});
 
 	socket.on('finDuJeu', function (data) {
 		finDuJeu(data.joueur);
+		alive();
 	});
 
 	socket.on('alive', function (data) {
