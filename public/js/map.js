@@ -3,7 +3,9 @@ var currentZone,
 	 currentQuestion,
 	 currentNumberQuestion,
 	 socket,
-	 resetTimeOut;
+	 resetTimeOut,
+	 resetTime = 3*60,
+	 timeLecture = 5;
 
 $(function(){
 	socket = io.connect(window.location.origin);
@@ -28,26 +30,39 @@ $(function(){
 	});
 
 	socket.on('alive', function (data) {
-		clearTimeout(resetTimeOut);
-		resetTimeOut = setTimeout(restart, 5000);
+		alive();
 	});
 });
 
+
 /********************* Lib tools fourre tout :) (oui c'est pourri mais on s'en fout !!!!!) ***********/
 
+var alive = function alive(){
+	clearTimeout(resetTimeOut);
+	resetTimeOut = setTimeout(restart, resetTime*1000);
+}
+
 var restart = function restart(){
-	modalMessage("Fin de partie",3);	
+	socket.emit('reset');	
+	modalMessage("Fin de partie",3);
 	$('#start').show();
+	$('#zone1').hide();
+	$('#zone2').hide();
+	$('#zone3').hide();
+	$('#zone4').hide();
 }
 
 var startGame = function startgame(){
 	$('#start').hide();
-	changeZone(1);
-	resetTimeOut = setTimeout(restart, 30000);
+    changeZone(1);
+	resetTimeOut = setTimeout(restart, resetTime*1000);
 }
 
 var changeZone = function changeZone(zoneNumber){
+	console.log("changeZone");
 	currentZone = getZoneFromNumber(zoneNumber);
+	var num = zoneNumber-1;
+	$('#zone'+num).show();
 }
 
 var nextZone = function nextZone(){
@@ -55,20 +70,40 @@ var nextZone = function nextZone(){
 }
 
 var finDeManche = function finDeManche(numJoueur){
-	modalMessage("Dommage, Le joueur "+numJoueur+" remporte cette manche !",5,reponseZone);
+	var msg ="Bravo, Le joueur "+numJoueur+" remporte cette manche !";
+	reponseZone(msg);
 }
 
 var finDuJeu = function finDuJeu(numJoueur){
-	modalMessage("Dommage, Le joueur "+numJoueur+" remporte cette dernière manche !",5,reponseZone);	
-	setTimeout(restart, 5000);	
+	$('#zone4').show();
+	var msg ="Bravo, Le joueur "+numJoueur+" remporte cette dernière manche !";	
+	reponseZone(msg);
+	setTimeout(restart, timeLecture * 1000);	
+}
+
+//afficher le texte de fin de zone
+var reponseZone = function reponseZone(msg){
+	
+	var resultat = '<p>'+msg+'</p><p>'+currentZone.resultatok.texte+'</p>';
+	if(currentZone.resultatok.image && currentZone.resultatok.image != ''){
+		resultat += '<img src="img/'+currentZone.resultatok.image+'>';
+	}
+	modalMessage(resultat,timeLecture,nextZone);
 }
 
 //Timer à afficher, modal qui s'affiche pendant le temps, callback à appeler à la fin du timer
 var modalMessage = function modalMessage(msg, timer, callback){
+	$.colorbox({
+		html:msg,
+		overlayClose:false,
+		closeButton:false,
+		maxWidth:"800"
+	});
+	setTimeout(function(){$.colorbox.close()},timer*1000);
+
 	if(callback != undefined){
-		setTimeout(callback, timer);
+		setTimeout(function(){callback()}, timer*1000);
 	}
-	alert(msg+ '  => wait '+ timer+'s');
 }
 
 var getZoneFromNumber = function getZoneFromNumber(zoneNumber){

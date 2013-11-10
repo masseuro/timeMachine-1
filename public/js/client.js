@@ -5,7 +5,7 @@ var currentZone,
 	socket,
 	timeDefault = 1,
 	timeFin = 2,
-	timeLecture = 20;
+	timeLecture = 5;
 
 $(function(){
 	socket = io.connect(window.location.origin);
@@ -30,8 +30,6 @@ $(function(){
 	socket.on('finDuJeu', function (data) {
 		finDuJeu(data.joueur);
 	});
-
-	
 
 	//gestion début de partie
 	$('#start').on("click", function(e) {
@@ -171,7 +169,7 @@ var modalMessage = function modalMessage(msg, timer, callback){
 		closeButton:false,
 		maxWidth:"800"
 	});
-	setTimeout(function(){$.colorbox.close()},timer*900);
+	setTimeout(function(){$.colorbox.close()},timer*1000);
 
 	if(callback != undefined){
 		setTimeout(function(){callback()}, timer*1000);

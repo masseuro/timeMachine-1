@@ -71,17 +71,22 @@ io.sockets.on('connection', function (socket) {
   //Victoire de la manche par un joueur
   socket.on('victoire', function (data) {
     socket.broadcast.emit('finDeManche',{joueur:data.joueur});
-    socket.broadcast.emit('alive');
+    
   });
 
   socket.on('endvictoire', function (data) {
     socket.broadcast.emit('finDuJeu',{joueur:data.joueur});
-    socket.broadcast.emit('alive');
+    
   });
 
   //Bonne reponse d'un joueur
   socket.on('bonnereponse', function (data) {
     //TODO affichage led suivant data.joueur
     socket.broadcast.emit('alive');
+  });
+
+  socket.on('reset', function (data) {
+    //TODO affichage led suivant data.joueur
+    socket.broadcast.emit('restart');
   });
 });
