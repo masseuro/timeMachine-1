@@ -43,7 +43,7 @@ var restart = function restart(){
 var startGame = function startgame(){
 	$('#start').hide();
 	changeZone(1);
-	resetTimeOut = setTimeout(restart, 5000);
+	resetTimeOut = setTimeout(restart, 30000);
 }
 
 var changeZone = function changeZone(zoneNumber){

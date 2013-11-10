@@ -2,7 +2,10 @@ var currentZone,
 	currentNumberZone,
 	currentQuestion,
 	currentNumberQuestion,
-	socket;
+	socket,
+	timeDefault = 1,
+	timeFin = 2,
+	timeLecture = 20;
 
 $(function(){
 	socket = io.connect(window.location.origin);
@@ -41,7 +44,7 @@ $(function(){
 
 	//gestion bonnes ou mauvaises réponses
 	$('#reponses').on('click','.faux',function(){
-		modalMessage("Dommage, ce n'est pas la bonne réponse" ,3);
+		modalMessage("<p>Dommage, ce n'est pas la bonne réponse</p>" ,timeDefault);
 	});
 	$('#reponses').on('click','.bon',function(){
 		socket.emit('bonnereponse', {joueur:joueur});
@@ -52,13 +55,13 @@ $(function(){
 /********************* Lib tools fourre tout :) (oui c'est pourri mais on s'en fout !!!!!) ***********/
 
 var restart = function restart(){
-	modalMessage("Fin de partie",3);	
+	modalMessage("<p>Fin de partie</p>",timeDefault);	
 	$('#start').show();
 }
 
 var startGame = function startgame(){
 	$('#start').hide();
-	modalMessage("Prêt ?" ,3);
+	modalMessage("<p>Prêt ?</p>" ,timeDefault);
 	changeZone(1);
 }
 
@@ -70,7 +73,7 @@ var afficheQuestion = function afficheQuestion(number,bon){
 		victoire();
 	}else{
 		if(bon == true){
-			modalMessage('Bonne réponse',3);
+			modalMessage('<p>Bonne réponse</p>',timeDefault);
 		}
 		var questionNumber = number +1 ;
 		$('#questiontexteInner').html('<p><strong>Question '+ questionNumber +'/4 :</strong><br>' + currentQuestion.question.texte + '</p>');
@@ -116,31 +119,37 @@ var victoire = function victoire(){
 }
 
 var felicitation = function felicitation(){
-	modalMessage("Bravo, joueur "+joueur+", vous remportez cette manche !",5,reponseZone);
+	var msg ="Bravo, joueur "+joueur+", vous remportez cette manche !";
+	reponseZone(msg);
 }
 
 var finDeManche = function finDeManche(numJoueur){
 
-	modalMessage("Dommage, Le joueur "+numJoueur+" remporte cette manche !",5,reponseZone);
+	var msg ="Dommage, Le joueur "+numJoueur+" remporte cette manche !";
+	reponseZone(msg);
 }
 
 var felicitationFinal = function felicitationFinal () {
-	modalMessage("Bravo, joueur "+joueur+", vous remportez cette dernière manche !",5,reponseZone);
-	setTimeout(restart, 5000);	
+	var msg = "Bravo, joueur "+joueur+", vous remportez cette dernière manche !";
+	
+	reponseZone(msg);
+	setTimeout(restart, timeLecture * 1000);	
 }
 
 var finDuJeu = function finDuJeu(numJoueur){
-	modalMessage("Dommage, Le joueur "+numJoueur+" remporte cette dernière manche !",5,reponseZone);	
-	setTimeout(restart, 5000);	
+	var msg ="Dommage, Le joueur "+numJoueur+" remporte cette dernière manche !";	
+	reponseZone(msg);
+	setTimeout(restart, timeLecture * 1000);	
 }
 
 //afficher le texte de fin de zone
-var reponseZone = function reponseZone(){
-	var resultat = '<p>'+currentZone.resultatok.texte+'</p>';
+var reponseZone = function reponseZone(msg){
+	
+	var resultat = '<p>'+msg+'</p><p>'+currentZone.resultatok.texte+'</p>';
 	if(currentZone.resultatok.image && currentZone.resultatok.image != ''){
 		resultat += '<img src="img/'+currentZone.resultatok.image+'>';
 	}
-	modalMessage(resultat,20,nextZone);
+	modalMessage(resultat,timeLecture,nextZone);
 }
 
 var getZoneFromNumber = function getZoneFromNumber(zoneNumber){
@@ -156,16 +165,15 @@ var getZoneFromNumber = function getZoneFromNumber(zoneNumber){
 
 //Timer à afficher, modal qui s'affiche pendant le temps, callback à appeler à la fin du timer
 var modalMessage = function modalMessage(msg, timer, callback){
-	if(callback != undefined){
-		setTimeout(callback, timer);
-	}
-	var msg = $('<div>'+msg+'</div>');
 	$.colorbox({
 		html:msg,
 		overlayClose:false,
 		closeButton:false,
 		maxWidth:"800"
 	});
-	setTimeout(function(){$.colorbox.close()},timer*1000);
-	//alert(msg+ '  => wait '+ timer+'s');
+	setTimeout(function(){$.colorbox.close()},timer*900);
+
+	if(callback != undefined){
+		setTimeout(function(){callback()}, timer*1000);
+	}
 }
