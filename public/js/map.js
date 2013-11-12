@@ -4,8 +4,8 @@ var currentZone,
 	 currentNumberQuestion,
 	 socket,
 	 resetTimeOut,
-	 resetTime = 3*60,
-	 timeLecture = 20;
+	 resetTime = 5*60,
+	 timeLecture = 15;
 
 $(function(){
 	socket = io.connect(window.location.origin);
@@ -16,6 +16,7 @@ $(function(){
 
 	socket.on('restart', function(data){
 		restart();
+		alive();
 	});
 	socket.on('startGame', function(data){
 		startGame();
@@ -61,10 +62,9 @@ var startGame = function startgame(){
 }
 
 var changeZone = function changeZone(zoneNumber){
-	console.log("changeZone");
 	currentZone = getZoneFromNumber(zoneNumber);
-	var num = zoneNumber-1;
-	$('#zone'+num).show();
+//	var num = zoneNumber-1;
+	$('#zone'+zoneNumber).show();
 }
 
 var nextZone = function nextZone(){
@@ -72,14 +72,14 @@ var nextZone = function nextZone(){
 }
 
 var finDeManche = function finDeManche(numJoueur){
-	var msg ="Bravo, Le joueur "+numJoueur+" remporte cette manche !";
+	var msg ="Bravo, Le joueur "+retourneJoueur(numJoueur)+" remporte cette manche !";
 	reponseZone(msg);
 }
 
 var finDuJeu = function finDuJeu(numJoueur){
 	$('#zone4').show();
-	var msg ="Bravo, Le joueur "+numJoueur+" remporte cette dernière manche !";	
-	reponseZone(msg);
+	var msg ="Bravo, Le joueur "+retourneJoueur(numJoueur)+" remporte cette dernière manche !<br><br>Le jeu se termine ici, merci d'avoir participé, et bonne visite";
+	modalMessage(msg,timeLecture,restart);
 	setTimeout(restart, timeLecture * 1000);	
 }
 
@@ -117,4 +117,24 @@ var getZoneFromNumber = function getZoneFromNumber(zoneNumber){
 			return zone;
 		}
 	}
+}
+
+
+var retourneJoueur = function retourneJoueur(numJoueur){
+	var resultat;
+	switch(numJoueur){
+		case 1:
+			resultat = "'tour'";
+			break;
+		case 2:
+			resultat = "'éléphant'";
+			break;
+		case 3:
+			resultat = "'petit LU'";
+			break;
+		case 4:
+			resultat = "'bâteau'";
+			break;
+	}
+	return resultat;
 }

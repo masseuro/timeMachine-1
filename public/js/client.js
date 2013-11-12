@@ -5,7 +5,7 @@ var currentZone,
 	socket,
 	timeDefault = 3,
 	timeFin = 2,
-	timeLecture = 20;
+	timeLecture = 15;
 
 $(function(){
 	socket = io.connect(window.location.origin);
@@ -117,25 +117,25 @@ var victoire = function victoire(){
 }
 
 var felicitation = function felicitation(){
-	var msg ="Bravo, joueur "+joueur+", vous remportez cette manche !";
+	var msg ="Bravo, joueur "+retourneJoueur(joueur)+", vous remportez cette manche !";
 	reponseZone(msg);
 }
 
 var finDeManche = function finDeManche(numJoueur){
 
-	var msg ="Dommage, Le joueur "+numJoueur+" remporte cette manche !";
+	var msg ="Dommage, Le joueur "+retourneJoueur(numJoueur)+" remporte cette manche !";
 	reponseZone(msg);
 }
 
 var felicitationFinal = function felicitationFinal () {
-	var msg = "Bravo, joueur "+joueur+", vous remportez cette dernière manche !";
+	var msg = "Bravo, joueur "+retourneJoueur(joueur)+", vous remportez cette dernière manche !";
 	
 	reponseZone(msg);
 	setTimeout(restart, timeLecture * 1000);	
 }
 
 var finDuJeu = function finDuJeu(numJoueur){
-	var msg ="Dommage, Le joueur "+numJoueur+" remporte cette dernière manche !";	
+	var msg ="Dommage, Le joueur "+retourneJoueur(numJoueur)+" remporte cette dernière manche !";	
 	reponseZone(msg);
 	setTimeout(restart, timeLecture * 1000);	
 }
@@ -174,4 +174,24 @@ var modalMessage = function modalMessage(msg, timer, callback){
 	if(callback != undefined){
 		setTimeout(function(){callback()}, timer*1000);
 	}
+}
+
+
+var retourneJoueur = function retourneJoueur(numJoueur){
+	var resultat;
+	switch(numJoueur){
+		case 1:
+			resultat = "'tour'";
+			break;
+		case 2:
+			resultat = "'éléphant'";
+			break;
+		case 3:
+			resultat = "'petit LU'";
+			break;
+		case 4:
+			resultat = "'bâteau'";
+			break;
+	}
+	return resultat;
 }
